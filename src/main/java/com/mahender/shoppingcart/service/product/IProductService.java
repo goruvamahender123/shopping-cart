@@ -3,10 +3,11 @@ package com.mahender.shoppingcart.service.product;
 import java.util.List;
 
 import com.mahender.shoppingcart.model.Product;
+import com.mahender.shoppingcart.request.AddProduct;
 
 public interface IProductService {
 	
-	Product addProduct(Product product);
+	Product addProduct(AddProduct product);
 	Product getProductById(Long id);
 	void updateProductById(Long id);
 	void deleteProductById(Long id);

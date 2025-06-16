@@ -11,14 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
 @Entity
 public class Product {
@@ -43,5 +39,15 @@ public class Product {
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Image> images;
+
+	public Product(String name, String brand, String description, BigDecimal price, int inventory, Category category) {
+		super();
+		this.name = name;
+		this.brand = brand;
+		this.description = description;
+		this.price = price;
+		this.inventory = inventory;
+		this.category = category;
+	}
 
 }

@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.mahender.shoppingcart.exceptions.ProductNotFoundException;
+import com.mahender.shoppingcart.model.Category;
 import com.mahender.shoppingcart.model.Product;
 import com.mahender.shoppingcart.repository.ProductRepository;
+import com.mahender.shoppingcart.request.AddProduct;
 
 @Service
 public class ProductService implements IProductService {
@@ -14,7 +16,7 @@ public class ProductService implements IProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public Product addProduct(Product product) {
+	public Product addProduct(AddProduct product) {
 		return null;
 	}
 
@@ -30,13 +32,15 @@ public class ProductService implements IProductService {
 
 	@Override
 	public void deleteProductById(Long id) {
-		productRepository.findById(id).ifPresentOrElse(productRepository::delete, () -> {throw new ProductNotFoundException("Product Not Found!");});
+		productRepository.findById(id).ifPresentOrElse(productRepository::delete, () -> {
+			throw new ProductNotFoundException("Product Not Found!");
+		});
 	}
 
 	@Override
 	public List<Product> getProductsByBrand(String brand) {
 
-		return null;
+		return productRepository.findByName(brand);
 	}
 
 	@Override
@@ -51,27 +55,32 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public List<Product> getProductsByCategoryAndBrand(String brand, String category) {
+	public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
 
-		return null;
+		return productRepository.findByCategoryNameAndBrand(category, brand);
 	}
 
 	@Override
 	public List<Product> getProductsByName(String name) {
 
-		return null;
+		return productRepository.findByProductName(name);
 	}
 
 	@Override
 	public List<Product> getProductsByNameAndBrand(String name, String brand) {
 
-		return null;
+		return productRepository.findByProductNameAndBrand(name, brand);
 	}
 
 	@Override
 	public Long countByBrandAndName(String name, String brand) {
 
-		return null;
+		return productRepository.count(name, brand);
+	}
+
+	private Product createProduct(AddProduct request, Category category) {
+		return new Product(request.getName(), request.getBrand(), request.getDescription(), request.getPrice(),
+				request.getInventory(), request.getCategory());
 	}
 
 }
