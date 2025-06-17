@@ -41,7 +41,6 @@ public class Product {
 	private List<Image> images;
 
 	public Product(String name, String brand, String description, BigDecimal price, int inventory, Category category) {
-		super();
 		this.name = name;
 		this.brand = brand;
 		this.description = description;

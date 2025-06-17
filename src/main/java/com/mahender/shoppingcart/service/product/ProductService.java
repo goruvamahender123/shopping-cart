@@ -1,22 +1,31 @@
 package com.mahender.shoppingcart.service.product;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.mahender.shoppingcart.exceptions.ProductNotFoundException;
 import com.mahender.shoppingcart.model.Category;
 import com.mahender.shoppingcart.model.Product;
+import com.mahender.shoppingcart.repository.CategoryRepository;
 import com.mahender.shoppingcart.repository.ProductRepository;
 import com.mahender.shoppingcart.request.AddProduct;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ProductService implements IProductService {
 
 	private ProductRepository productRepository;
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public Product addProduct(AddProduct product) {
+		//If already category is already present Add product that's it
+		//If category is not present then get the product category from request and save the product.
+		Category category = Optional.ofNullable(categoryRepository.findByName(product.getCategory().getName()))
 		return null;
 	}
 
